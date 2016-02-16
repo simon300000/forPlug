@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var multer = require('multer');
 
 
 var routes = require('./routes/index');
@@ -24,15 +23,14 @@ app.use(flash());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-
     secret: settings.cookieSecret,
     key: settings.db,//cookie name
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7},//30 days
     store: new MongoStore({
         db: settings.db,
         host: settings.host,
@@ -40,15 +38,6 @@ app.use(session({
     })
 }));
 
-app.use(multer({
-    dest: './public/images',
-    rename: function (fieldname, filename) {
-        return filename;
-    }
-}));
-
 app.use('/', routes);
-
-
 
 module.exports = app;

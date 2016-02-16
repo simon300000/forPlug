@@ -5,7 +5,9 @@ var crypto = require('crypto'),
     Email = require('../models/email.js'),
     Ccad = require('../models/ccad.js');
 var express = require('express');
-var ccap = require('ccap');
+var authorLogo = require('../models/authorLogo');
+var uploadPost = require('../models/uploadPost');
+
 
 var router = express.Router();
 
@@ -19,15 +21,18 @@ router.get('/', function (req, res) {
         if (err) {
             posts = [];
         }
-        res.render('index', {
-            title: '首页-forPlug',
-            posts: posts,
-            page: page,
-            isFirstPage: (page - 1) == 0,
-            isLastPage: ((page - 1) * 10 + posts.length) == total,
-            user: req.session.user,
-            success: req.flash('success').toString(),
-            error: req.flash('error').toString()
+        User.getAll(null, function (err, user) {
+            res.render('index', {
+                title: '首页-forPlug',
+                posts: posts,
+                page: page,
+                isFirstPage: (page - 1) == 0,
+                isLastPage: ((page - 1) * 10 + posts.length) == total,
+                user: req.session.user,
+                users: user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
         });
     });
 });
@@ -39,7 +44,7 @@ router.get('/login', function(req, res) {
       title: '登录-forPlug',
       user: req.session.user,
       success: req.flash('success').toString(),
-      error: req.flash('error').toString(),
+      error: req.flash('error').toString()
   });
 });
 //输入验证码图片
@@ -179,7 +184,8 @@ router.post('/reg', function(req, res) {
         name: name,
         Low_name: name.toLowerCase(),
         password: password,
-        email: req.body.email.toLowerCase()
+        email: req.body.email.toLowerCase(),
+        logoPath: "/images/login_logo.png"
     });
     //检查用户名是否已经存在
     User.get(newUser.Low_name, function (err, user) {
@@ -333,196 +339,17 @@ router.get('/post', function(req, res) {
         tag1: req.flash('tag1').toString(),
         tag2: req.flash('tag2').toString(),
         tag3: req.flash('tag3').toString(),
-        about: req.flash('about').toString()
+        tag4: req.flash('tag4').toString(),
+        tag5: req.flash('tag5').toString(),
+        about: req.flash('about').toString(),
+        down: req.flash('down').toString(),
+        ver: req.flash('ver').toString()
         //防止错误删除编辑内容
     });
 });
 
 router.post('/post', checkLogin);
-router.post('/post', function(req, res) {
-    var currentUser = req.session.user,
-        tags = [req.body.tag1, req.body.tag2, req.body.tag3],
-        post = new Post(currentUser.name, req.body.title, tags, req.body.about, req.body.post);
-
-    if(!req.body.title){
-        req.flash('error', '请输入标题!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-    if(!req.body.about){
-        req.flash('error', '请输入简介!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-    if(!req.body.tag1){
-        req.flash('error', '请输入标签!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-    if(!req.body.tag2) {
-        req.flash('error', '请输入标签!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-    if(!req.body.tag3){
-        req.flash('error', '请输入标签!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-    if(!req.body.post){
-        req.flash('error', '请输入描述!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.title > 18){
-        req.flash('error', '简介由3-18个字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.title > 3){
-        req.flash('error', '标题由3-18个字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.about.length > 65){
-        req.flash('error', '简介由5-65个字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.about.length < 5){
-        req.flash('error', '简介由5-65个字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag1 > 4){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag1 < 1){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag2 > 4){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag2 < 1){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag3 > 4){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    if(req.body.tag3 < 1){
-        req.flash('error', '标签由1-4字符组成!');
-        req.flash('post', req.body.post);
-        req.flash('title1', req.body.title);
-        req.flash('tag1', req.body.tag1);
-        req.flash('tag2', req.body.tag2);
-        req.flash('tag3', req.body.tag3);
-        req.flash('about', req.body.about);
-        return res.redirect('/post');
-    }
-
-    post.save(function (err) {
-        if (err) {
-            req.flash('error', err);
-            return res.redirect('/');
-        }
-        req.flash('success', '发布成功!');
-        res.redirect('/');//发表成功跳转到主页
-    });
+router.post('/post', uploadPost.dataInput, function(req, res) {
 });
 
 //登出
@@ -543,17 +370,16 @@ router.get('/upload', function (req, res) {
     });
 });
 
-router.post('/upload', checkLogin);
-router.post('/upload', function (req, res) {
-    req.flash('success', '文件上传成功！');
-    res.redirect('/upload');
-})
+router.post('/upload_logo', checkLogin);
+router.post('/upload_logo', authorLogo.dataInput, function (req, res) {
+});
 
 //实现用户页面与文章页面
 router.get('/u/:name', function (req, res) {
     var page = parseInt(req.query.p) || 1;
     //检查用户是否存在
-    User.get(req.params.name, function (err, user) {
+    //null = req.params.name.toLowerCase()
+    User.get(null, function (err, user) {
         if (!user) {
             req.flash('error', '用户不存在!');
             return res.redirect('/');
@@ -565,7 +391,7 @@ router.get('/u/:name', function (req, res) {
                 return res.redirect('/');
             }
             res.render('user', {
-                title: user.x_name,
+                title: user.Low_name,
                 posts: posts,
                 page: page,
                 isFirstPage: (page - 1) == 0,
@@ -577,30 +403,34 @@ router.get('/u/:name', function (req, res) {
         });
     });
 });
+
 router.get('/u/:name/:day/:title', function (req, res) {
     Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
         if (err) {
             req.flash('error', err);
             return res.redirect('/');
         }
-        res.render('article', {
-            title: req.params.title,
-            post: post,
-            user: req.session.user,
-            success: req.flash('success').toString(),
-            error: req.flash('error').toString()
+        User.getAll(null, function (err, user) {
+            res.render('article', {
+                title: req.params.title,
+                post: post,
+                user: req.session.user,
+                users: user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
         });
     });
 });
+
+
 //留言
 router.post('/u/:name/:day/:title', function (req, res) {
     var date = new Date(),
         time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
             date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
     var comment = {
-        name: req.body.name,
-        email: req.body.email,
-        website: req.body.website,
+        name: req.session.user.name,
         time: time,
         content: req.body.content
     };

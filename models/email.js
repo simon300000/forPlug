@@ -15,7 +15,7 @@ Email.prototype.send = function (){
         secure: true, // use SSL
         auth: {
             user: 'admin@forplug.com',
-            pass: '998776lin'
+            pass: '998776lin.'
         }
     });
 

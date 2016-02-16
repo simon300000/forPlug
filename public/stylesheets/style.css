@@ -3,7 +3,7 @@ body{
     -webkit-margin-before: 0;
     padding: 0;
     border: 0;
-    min-width: 1200px;
+    min-width: 1170px;
     text-decoration: none;
     list-style-type:none;
 }
@@ -21,13 +21,13 @@ body{
     top: 0;
     height: 70px;
     width: 100%;
-    background-color: #333333;
-    -webkit-opacity: 0.9;
-    -moz-opacity: 0.9;
-    -khtml-opacity: 0.9;
-    opacity: 0.9;
-    filter:alpha(opacity=90);
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    background-color: #000000;
+    -webkit-opacity: 0.6;
+    -moz-opacity: 0.6;
+    -khtml-opacity: 0.6;
+    opacity: 0.6;
+    filter:alpha(opacity=60);
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
     z-index: 1000;
 }
 .top_container{
@@ -151,6 +151,48 @@ body{
     text-decoration:none;
 }
 
+.top_user_author_logo{
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    z-index: 1002;
+}
+
+.top_user_author_div{
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    width: 100px;
+    height: 200px;
+    z-index: 1001;
+    display: none;
+}
+.top_user_author_div_color{
+    position: absolute;
+    right: 15px;
+    top: 70px;
+    width: 100px;
+    height: 160px;
+    background-color: #333333;
+    -webkit-opacity: 0.9;
+    -moz-opacity: 0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+    filter:alpha(opacity=90);
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    z-index: 1000;
+    display: none;
+}
+
+.top_user_author_div_mouse{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 1000px;
+    height: 1000px;
+    z-index: -10000;
+}
+
 .top_user_reg a{
     color: #f35e52;
     position: absolute;
@@ -173,8 +215,8 @@ body{
 .top_user_post a{
     color: #f35e52;
     position: absolute;
-    right: 115px;
-    top: 18px;
+    right: 20px;
+    top: 115px;
     border: 1px solid #f35e52;
     border-radius:3px;
     text-decoration:none;
@@ -193,8 +235,8 @@ body{
 .top_user_logout a{
     color: #f35e52;
     position: absolute;
-    right: 40px;
-    top: 18px;
+    right: 20px;
+    top: 70px;
     border: 1px solid #f35e52;
     border-radius:3px;
     text-decoration:none;
@@ -203,6 +245,24 @@ body{
     -webkit-transition: background-color 0.3s; /* Safari */
 }
 .top_user_logout a:hover{
+    background-color: #f35e52;
+    color: white;
+    text-decoration:none;
+}
+
+.top_user_upload a{
+    color: #f35e52;
+    position: absolute;
+    right: 20px;
+    top: 160px;
+    border: 1px solid #f35e52;
+    border-radius:3px;
+    text-decoration:none;
+    padding: 6px 14px;
+    transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s; /* Safari */
+}
+.top_user_upload a:hover{
     background-color: #f35e52;
     color: white;
     text-decoration:none;
@@ -217,6 +277,9 @@ body{
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 6px;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
 }
 .reg{
     position: relative;
@@ -226,6 +289,9 @@ body{
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 6px;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
 }
 .reg_mail{
     position: relative;
@@ -354,174 +420,6 @@ body{
     background-position:0 -44px;
 }
 
-/*文章列表*/
-.mid{
-    position: relative;
-    height: auto;
-    width: 1200px;
-    display: table;
-    margin: 0 auto;
-    padding: 0;
-}
-.mid_left_container{
-    position: relative;
-    top: -10px;
-    width: 775px;
-    margin: 0;
-    padding: 0;
-    display: table-cell;
-}
-.mid_nav_left{
-    position: relative;
-    height: 150px;
-    width: 775px;
-    margin: 0;
-    display: block;
-}
-.mid_nav_left li{
-    position: relative;
-    height: 150px;
-    width: 775px;
-    background-color: #ffffff;
-    margin: 20px 0;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
-    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
-    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
-}
-.mid_nav_img{
-    position: absolute;
-    margin: 10px;
-    height: 130px;
-    width: 130px;
-}
-.mid_nav_name{
-    position: relative;
-    top: 10px;
-    left: 160px;
-    display: inline-block;
-}
-.mid_nav_name a{
-    font-size: 20px;
-    color: #000000;
-}
-.mid_nav_name a:hover{
-    color: #000000;
-    text-decoration: none;
-}
-.mid_nav_name_text{
-    position: relative;
-    top: -2px;
-}
-.mid_nav_content{
-    position: absolute;
-    top: 40px;
-    left: 160px;
-    font-size: 14px;
-    width: 520px;
-    line-height:0.7;
-    background-color: #f6f6f6;
-    height: 55px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    overflow: hidden;
-    word-break:break-all;
-}
-.mid_nav_content *{
-    color: #545454;
-    font-size: 15px;
-    line-height:1.6;
-    margin-top: 3px;
-    margin-left: 10px;
-}
-.mid_nav_author_name a{
-    position: absolute;
-    top: 113px;
-    left: 203px;
-    font-size: 16px;
-    border-right: 1px solid #aeaeae;
-    padding-right: 10px;
-    color: #000000;
-}
-.mid_nav_author_name a:hover{
-    color: #000000;
-    text-decoration: none;
-}
-.mid_nav_author_img{
-    position: absolute;
-    top: 105px;
-    left: 160px;
-}
-.mid_nav_plugin_time_img{
-    position: absolute;
-    top: 108px;
-    left: 268px;
-    height: 30px;
-    width: 30px;
-    background:url(../images/time.png) no-repeat center;
-    background-size: contain;
-}
-.mid_nav_plugin_time_text{
-    position: absolute;
-    top: 112px;
-    left: 305px;
-    font-size: 15px;
-}
-.mid_nav_plugin_number_img{
-    position: absolute;
-    top: 111px;
-    right: 150px;
-    height: 25px;
-    width: 25px;
-    background:url(../images/eye.png) no-repeat center;
-    background-size: contain;
-}
-.mid_nav_plugin_number_text{
-    position: absolute;
-    top: 113px;
-    right: 105px;
-    font-size: 14px;
-}
-.mid_nav_bth{
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-}
-.mid_nav_plugin_cost{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-/*右边*/
-.mid_right_container {
-    position: relative;
-    top: 25px;
-    height: 55px;
-    width: 400px;
-    display: inline-block;
-}
-.mid_nav_right_search{
-    position: relative;
-    height: 55px;
-    width: 400px;
-    background-color: #ffffff;
-    margin: 0;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
-}
-.mid_nav_right_search_bth{
-    position: absolute;
-    left: 338px;
-    top: 10px;
-}
-.mid_nav_right_search_input{
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 318px;
-}
-
 /*编辑页面*/
 
 .edit{
@@ -538,7 +436,7 @@ body{
     background-color: #FFFFFF;
     -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
     -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
-    box-shadow:0 0 10px rgba(193, 193, 193, 0.5)
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
 }
 .edit_txt{
     position: relative;
@@ -589,6 +487,155 @@ body{
     padding: 5px;
 }
 
+/*文章页面*/
+.posts{
+    height: auto;
+    width: 1200px;
+    display: block;
+    margin: 30px auto;
+}
+.posts_left_container{
+    position: relative;
+    margin: 20px auto;
+    border: 1px solid #dbdbdb;
+    background-color: #FFFFFF;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    display: block;
+}
+.posts_right_container{
+    position: relative;
+    margin-top: 20px;
+    display: block;
+    width: 310px;
+}
+
+.posts_top{
+    position: relative;
+    display: table;
+    margin: 30px;
+}
+.posts_img{
+    position: relative;
+    height: 64px;
+    width: 64px;
+    display: block;
+}
+.posts_text p{
+    position: relative;
+    font-size: 24px;
+    display: block;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.posts_about p{
+    width: 600px;
+    font-size: 16px;
+    display: block;
+    color: #8f8f8f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.posts_post_container{
+    position: relative;
+    margin: 30px;
+}
+.posts_info{
+    position: relative;
+    background-color: #f3f3f3;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    display: block;
+}
+.posts_info_top{
+    position: relative;
+    font-size: 22px;
+    height: 50px;
+    width: 310px;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    background-color: #f35e52;
+}
+.posts_info_mid{
+    position: relative;
+    font-size: 16px;
+    padding: 0 20px;
+}
+.posts_info_mid_context{
+    position: relative;
+    font-size: 16px;
+    width: 270px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    display: table;
+}
+
+/*留言*/
+.comment{
+    position: relative;
+    height: auto;
+    margin: 80px 0 0 0;
+
+}
+.comment_text{
+    position: relative;
+    left: 40px;
+    font-size: 24px;
+}
+.comment_container{
+    padding: 5px 30px;
+    display: block;
+}
+.comment_author_logo{
+    position: relative;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 48px;
+}
+.comment_author_container{
+    position: relative;
+    display: block;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 0;
+}
+.comment_author_name a{
+    position: relative;
+    font-size: 16px;
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-decoration:none;
+    color: #82898d;
+    font-weight:bold;
+}
+.comment_author_name a:hover{
+    text-decoration:none;
+}
+.comment_author_context p{
+    position: relative;
+    display: block;
+    word-wrap: break-word;
+    padding: 3px 0;
+    margin: 0;
+}
+.comment_author_pv p{
+    position: relative;
+    bottom: 0;
+    display: block;
+    padding: 0 0 15px 0;
+    margin: 0;
+    color: #9a9a9a;
+}
+
+
 /*其他*/
 .info{
     font-size:14px;
@@ -617,4 +664,127 @@ body{
     display:inline-block;
     position: relative;
     top:-5px;
+}
+
+/*重构版首页*/
+.index_li_container{
+    margin-top: 20px;
+}
+.index_li_container li{
+    position: relative;
+    height: 160px;
+    width: 758px;
+    background-color: #ffffff;
+    margin-bottom: 12px;
+    border: 1px solid #dbdbdb;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    display: table;
+    padding: 9px 10px;
+}
+.index_li_img{
+    position: absolute;
+    height: 140px;
+    width: 250px;
+    background-color: #0880d7;
+    display: block;
+}
+.index_li_context{
+    position: absolute;
+    width: 485px;
+    display: block;
+    margin: 0 0 0 250px;
+}
+.index_li_name a{
+    position: relative;
+    top: -3px;
+    font-size: 22px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    text-decoration:none;
+}
+.index_li_name a:hover{
+    text-decoration:none;
+}
+
+
+.index_li_tag{
+    position: relative;
+    top: -5px;
+    font-size: 17px;
+    margin: 0 0 0 10px;
+    padding: 0;
+}
+.index_li_about{
+    position: relative;
+    margin: 0 0 0 10px;
+    width: 500px;
+    height: 40px;
+    overflow: hidden;
+    font-size: 14px;
+    word-break: break-all;
+}
+.index_li_author_container{
+    position: relative;
+    margin: 7px 0 0 10px;
+}
+.index_li_author_img{
+    position: absolute;
+}
+.index_li_author_name{
+    position: absolute;
+    top: 8px;
+    left: 47px;
+    font-size: 16px;
+}
+.index_li_author_name a{
+    text-decoration:none
+}
+.index_li_author_name a:hover{
+    text-decoration:none
+}
+.index_li_cost{
+    background-color: #0880d7;
+}
+.index_li_cost p{
+    background-color: #0880d7;
+    padding: 0;
+    margin: 0;
+}
+
+/*友情链接*/
+.friend{
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    min-width: 360px;
+    display: block;
+    background-color: #ffffff;
+    -webkit-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    -moz-box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+    box-shadow:0 0 10px rgba(193, 193, 193, 0.5);
+}
+.friend_name {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-color: #5ebdff;
+    text-align: center;
+    font-size: 22px;
+    padding: 10px 0;
+    color: white;
+}
+.friend li {
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+}
+
+.friend_context_name p{
+    position: relative;
+    display: block;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
 }

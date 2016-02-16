@@ -1,16 +1,74 @@
 <%- include header %>
 <body style="background-color: #e8e8e8">
 <%- include top %>
-<p>
+<div class="top_css"></div>
+<div class="container" style="min-width: 1024px;">
+    <div class="col-md-8 col-xs-8" style="min-width: 700px;">
+        <div class="posts_left_container">
+            <div class="posts_top">
+                <div class="row">
+                    <div class="col-md-1" style="width: 80px;">
+                        <div class="posts_img">
+                            <img src="<%= post.target_logo %>" alt="<%= post.title %>" class="img-rounded" height="64px" width="64px">
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="posts_text">
+                            <p><%= post.title %></p>
+                        </div>
+                        <div class="posts_about">
+                            <p><%= post.about %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="posts_post_container">
+                <p><%- post.post %></p>
+            </div>
+            <%- include comment %>
+        </div>
+    </div>
+    <div class="col-md-4 col-xs-4">
+        <div class="posts_right_container">
+            <div class="posts_info">
+                <p class="posts_info_top">插件信息</p>
+                <div class="row posts_info_mid">
+                    <p class="col-md-4">作者：</p>
+                    <div class="col-md-8" style="text-align: right;"><a href="/u/<%= post.name %>"><%= post.name %></a></div>
+                </div>
+                <div class="row posts_info_mid">
+                    <p class="col-md-4">分类：</p>
+                    <div class="col-md-8" style="text-align: right;"><%= post.selectSort %></div>
+                </div>
+                <div class="row posts_info_mid">
+                    <p class="col-md-5">插件版本：</p>
+                    <div class="col-md-7" style="text-align: right;"><%= post.ver %></div>
+                </div>
+                <div class="row posts_info_mid">
+                    <p class="col-md-5">查看次数：</p>
+                    <div class="col-md-7" style="text-align: right;"><%= post.pv %></div>
+                </div>
+                <div class="row posts_info_mid">
+                    <p class="col-md-5">发布时间：</p>
+                    <div class="col-md-7" style="text-align: right;"><%= post.time.minute %></div>
+                </div>
+                <div class="row posts_info_mid">
+                    <p class="col-md-5">最后编辑：</p>
+                    <div class="col-md-7" style="text-align: right;"><%= post.last_time.minute %></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info btn-lg btn-block" onclick="window.open('<%= post.down %>')" style="margin-top:15px; -moz-border-radius: 0;-webkit-border-radius: 0;border-radius:0;">下载插件</button>
+        </div>
+    </div>
+</div>
+
+<!--<p> 编辑和删除按钮
     <% if (user && (user.name == post.name)) { %>
     <span><a class="edit" href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">编辑</a></span>
     <span><a class="edit" href="/remove/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">删除</a></span>
     <% } %>
-</p>
-<p class="info">
-    作者：<a href="/u/<%= post.name %>"><%= post.name %></a> |
-    日期：<%= post.time.minute %>
-</p>
-<p><%- post.post %></p>
-<%- include comment %>
+</p>-->
+
+
 <%- include footer %>

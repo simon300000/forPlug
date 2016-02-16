@@ -3,44 +3,196 @@
 <%- include top %>
 <%- include notice %>
 <div class="top_css"></div>
-<form method="post">
+<form method="post"  action='/post' enctype='multipart/form-data'>
     <div class="edit">
         <div class="edit_container">
             <div class="edit_txt">简介</div>
                 <div class="edit_options">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">标题</label>
-                            <div class="col-sm-7">
+                            <label class="col-sm-1 control-label">主题</label>
+                            <div class="col-sm-2">
+                                <input style="display: none;" name="selectSort" id="select1" value="0">
+                                <select class="form-control" id="selectValue1" onchange="selectValue();">
+                                    <option value="">分类</option>
+                                    <option value="">管理</option>
+                                    <option value="">安全</option>
+                                    <option value="">聊天</option>
+                                    <option value="">编程</option>
+                                    <option value="">经济</option>
+                                    <option value="">修正</option>
+                                    <option value="">娱乐</option>
+                                    <option value="">综合</option>
+                                    <option value="">信息</option>
+                                    <option value="">机械</option>
+                                    <option value="">其它</option>
+                                    <option value="">角色</option>
+                                    <option value="">传送</option>
+                                    <option value="">网页</option>
+                                    <option value="">整地</option>
+                                    <option value="">创世</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-5" style="width: 315px; ">
                                 <input type="name" class="form-control" name="title" value="<%= title1 %>">
                                 <span id="helpBlock" class="help-block">标题全靠脑洞</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="name" class="form-control" name="ver" value="<%= ver %>">
+                                <span id="helpBlock" class="help-block">插件版本</span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin: 0 0 0 -15px;">
+                            <label class="col-sm-1 control-label" style="padding: 6px 0 20px 0;">标签颜色</label>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectTag1" id="selectTag1" value="0">
+                                    <select class="form-control" id="selectTagValue1" onchange="TagChange1();">
+                                        <option value="">关闭</option>
+                                        <option value="">蓝色</option>
+                                        <option value="">深蓝</option>
+                                        <option value="">绿色</option>
+                                        <option value="">黄色</option>
+                                        <option value="">红色</option>
+                                        <option value="">灰色</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectTag2" id="selectTag2" value="0">
+                                    <select class="form-control" id="selectTagValue2" onchange="TagChange2();">
+                                        <option value="">关闭</option>
+                                        <option value="">蓝色</option>
+                                        <option value="">深蓝</option>
+                                        <option value="">绿色</option>
+                                        <option value="">黄色</option>
+                                        <option value="">红色</option>
+                                        <option value="">灰色</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectTag3" id="selectTag3" value="0">
+                                    <select class="form-control" id="selectTagValue3" onchange="TagChange3();">
+                                        <option value="">关闭</option>
+                                        <option value="">蓝色</option>
+                                        <option value="">深蓝</option>
+                                        <option value="">绿色</option>
+                                        <option value="">黄色</option>
+                                        <option value="">红色</option>
+                                        <option value="">灰色</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectTag4" id="selectTag4" value="0">
+                                    <select class="form-control" id="selectTagValue4" onchange="TagChange4();">
+                                        <option value="">关闭</option>
+                                        <option value="">蓝色</option>
+                                        <option value="">深蓝</option>
+                                        <option value="">绿色</option>
+                                        <option value="">黄色</option>
+                                        <option value="">红色</option>
+                                        <option value="">灰色</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectTag5" id="selectTag5" value="0">
+                                    <select class="form-control" id="selectTagValue5" onchange="TagChange5();">
+                                        <option value="">关闭</option>
+                                        <option value="">蓝色</option>
+                                        <option value="">深蓝</option>
+                                        <option value="">绿色</option>
+                                        <option value="">黄色</option>
+                                        <option value="">红色</option>
+                                        <option value="">灰色</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" style="padding: 6px 0 20px 0;">标签内容</label>
+                            <div class="row">
+                                <div class="col-sm-2" style="width: 124px;">
+                                    <input type="name" class="form-control" id="select-Tag1" name="tag1" value="<%= tag1 %>">
+                                    <input class="form-control" id="select_Tag1" type="number" disabled>
+                                    <span id="helpBlock" class="help-block">标签①</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 124px;">
+                                    <input type="name" class="form-control" id="select-Tag2" name="tag2" value="<%= tag2 %>">
+                                    <input class="form-control" id="select_Tag2" type="number" disabled>
+                                    <span id="helpBlock" class="help-block">标签②</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 124px;">
+                                    <input type="name" class="form-control" id="select-Tag3" name="tag3" value="<%= tag3 %>">
+                                    <input class="form-control" id="select_Tag3" type="number" disabled>
+                                    <span id="helpBlock" class="help-block">标签③</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 124px;">
+                                    <input type="name" class="form-control" id="select-Tag4" name="tag4" value="<%= tag4 %>">
+                                    <input class="form-control" id="select_Tag4" type="number" disabled>
+                                    <span id="helpBlock" class="help-block">标签④</span>
+                                </div>
+                                <div class="col-sm-2" style="width: 124px;">
+                                    <input type="name" class="form-control" id="select-Tag5" name="tag5" value="<%= tag5 %>">
+                                    <input class="form-control" id="select_Tag5" type="number" disabled>
+                                    <span id="helpBlock" class="help-block">标签⑤</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-1 control-label">简介</label>
-                            <div class="col-sm-7">
+                            <div class="col-sm-8" style="width: 620px;">
                                 <input type="name" class="form-control" name="about" value="<%= about %>">
                                 <span id="helpBlock" class="help-block">构思一句话描述你的神乎其技的插件</span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">标签</label>
-                            <div class="row">
-                                <div class="col-xs-2" style="width: 142px; ">
-                                    <input type="name" class="form-control" name="tag1" value="<%= tag1 %>">
+                            <label class="col-sm-1 control-label">收费</label>
+                            <div class="col-sm-2">
+                                <input style="display: none;" name="selectCost" id="select2">
+                                <select class="form-control" id="selectValue2" onchange="gradeChange();">
+                                    <option value="free">免费</option>
+                                    <option value="RMB">人民币</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2" id="yc1">
+                                <input class="form-control" id="disabledInput" type="number" placeholder="免费啦！" disabled>
+                                <span id="helpBlock" class="help-block">别学G胖哟~</span>
+                            </div>
+                            <div id="yc">
+                                <div class="col-sm-2">
+                                    <input style="display: none;" name="selectCost" id="select2">
+                                    <select class="form-control" id="selectValue2" onchange="gradeChange();">
+                                        <option>无优惠</option>
+                                        <option>折扣</option>
+                                        <option>优惠价</option>
+                                    </select>
+                                    <span id="helpBlock" class="help-block">打个折?</span>
                                 </div>
-                                <div class="col-xs-2" style="width: 142px;">
-                                    <input type="name" class="form-control" name="tag2" value="<%= tag2 %>">
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" name="cost" value="0" id="cost">
+
                                 </div>
-                                <div class="col-xs-2" style="width: 142px;">
-                                    <input type="name" class="form-control" name="tag3" value="<%= tag3 %>">
-                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label" style="padding: 6px 0 20px 0;">下载地址</label>
+                            <div class="col-sm-8" style="width: 620px;">
+                                <input type="name" class="form-control" name="down" value="<%= down %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">图片</label>
+                            <div class="col-sm-4" style="padding: 5px 15px;">
+                                <input type="file" name='post'/>
+                                <span id="helpBlock" class="help-block">插件图标</span>
+                            </div>
+                            <div class="col-sm-4" style="padding: 5px 15px;">
+                                <input type="file" name='post'/>
+                                <span id="helpBlock" class="help-block">展示图片</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            <div class="edit_txt">描述</div>
-            <div style="padding: 0 40px;">
+            <div style="padding: 10px 40px;">
                 <textarea id="editor3" rows="10" cols="80" name="post"><%= post %></textarea>
             </div>
             <div class="edit_send">
@@ -51,7 +203,9 @@
 </form>
 
 
-<script>
+<script type="text/javascript">
+
+    //编辑器的设置
     CKEDITOR.replace( 'editor3', {
         customConfig: './ckeditor_config.js'
     });
@@ -59,5 +213,159 @@
     {
         config.uiColor = '#FAFAFA';
     };
+
+    //设置标签隐藏
+    document.getElementById("yc").style.display="none";
+    document.getElementById("select-Tag1").style.display="none";
+    document.getElementById("select-Tag2").style.display="none";
+    document.getElementById("select-Tag3").style.display="none";
+    document.getElementById("select-Tag4").style.display="none";
+    document.getElementById("select-Tag5").style.display="none";
+
+    //显示方法(价格)
+    function yingcang(){
+        document.getElementById("yc").style.display="none";
+        document.getElementById("yc1").style.display="block";
+    }
+
+    //隐藏方法(价格)
+    function xianshi(){
+        document.getElementById("yc").style.display="block";
+        document.getElementById("yc1").style.display="none";
+    }
+
+    //检测多项选择选择哪一个(分类)
+    function selectValue(){
+        document.getElementById("select1").value = document.getElementById("selectValue1").selectedIndex;
+    }
+
+    //检测多项选择选择哪一个(收费)
+    function selectValue2(){
+        document.getElementById("select2").value = document.getElementById("selectValue2").selectedIndex;
+    }
+    function gradeChange(){
+        if(document.getElementById("selectValue2").selectedIndex > 0) {
+            xianshi();
+            selectValue2();
+        }
+        if(document.getElementById("selectValue2").selectedIndex == 0) {
+            document.getElementById("cost").value= null;
+            yingcang();
+            selectValue2();
+        }
+    }
+
+    //检测多项选择选择哪一个(标签)
+    function selectTag1() {
+        document.getElementById("selectTag1").value = document.getElementById("selectTagValue1").selectedIndex;
+    }
+    function TagFlatIn1() {
+        document.getElementById("select-Tag1").style.display="block";
+        document.getElementById("select_Tag1").style.display="none";
+    }
+    function TagFlatOut1() {
+        document.getElementById("select-Tag1").style.display="none";
+        document.getElementById("select_Tag1").style.display="block";
+    }
+    function TagChange1() {
+        if(document.getElementById("selectTagValue1").selectedIndex > 0) {
+            selectTag1();
+            TagFlatIn1();
+        }
+        if(document.getElementById("selectTagValue1").selectedIndex == 0) {
+            selectTag1();
+            TagFlatOut1();
+        }
+    }
+
+    function selectTag2() {
+        document.getElementById("selectTag2").value = document.getElementById("selectTagValue2").selectedIndex;
+    }
+    function TagFlatIn2() {
+        document.getElementById("select-Tag2").style.display="block";
+        document.getElementById("select_Tag2").style.display="none";
+    }
+    function TagFlatOut2() {
+        document.getElementById("select-Tag2").style.display="none";
+        document.getElementById("select_Tag2").style.display="block";
+    }
+    function TagChange2() {
+        if(document.getElementById("selectTagValue2").selectedIndex > 0) {
+            selectTag2();
+            TagFlatIn2();
+        }
+        if(document.getElementById("selectTagValue2").selectedIndex == 0) {
+            selectTag2();
+            TagFlatOut2();
+        }
+    }
+
+    function selectTag3() {
+        document.getElementById("selectTag3").value = document.getElementById("selectTagValue3").selectedIndex;
+    }
+    function TagFlatIn3() {
+        document.getElementById("select-Tag3").style.display="block";
+        document.getElementById("select_Tag3").style.display="none";
+    }
+    function TagFlatOut3() {
+        document.getElementById("select-Tag3").style.display="none";
+        document.getElementById("select_Tag3").style.display="block";
+    }
+    function TagChange3() {
+        if(document.getElementById("selectTagValue3").selectedIndex > 0) {
+            selectTag3();
+            TagFlatIn3();
+        }
+        if(document.getElementById("selectTagValue3").selectedIndex == 0) {
+            selectTag3();
+            TagFlatOut3();
+        }
+    }
+
+    function selectTag4() {
+        document.getElementById("selectTag4").value = document.getElementById("selectTagValue4").selectedIndex;
+    }
+    function TagFlatIn4() {
+        document.getElementById("select-Tag4").style.display="block";
+        document.getElementById("select_Tag4").style.display="none";
+    }
+    function TagFlatOut4() {
+        document.getElementById("select-Tag4").style.display="none";
+        document.getElementById("select_Tag4").style.display="block";
+    }
+    function TagChange4() {
+        if(document.getElementById("selectTagValue4").selectedIndex > 0) {
+            selectTag4();
+            TagFlatIn4();
+        }
+        if(document.getElementById("selectTagValue4").selectedIndex == 0) {
+            selectTag4();
+            TagFlatOut4();
+        }
+    }
+
+    function selectTag5() {
+        document.getElementById("selectTag5").value = document.getElementById("selectTagValue5").selectedIndex;
+    }
+    function TagFlatIn5() {
+        document.getElementById("select-Tag5").style.display="block";
+        document.getElementById("select_Tag5").style.display="none";
+    }
+    function TagFlatOut5() {
+        document.getElementById("select-Tag5").style.display="none";
+        document.getElementById("select_Tag5").style.display="block";
+    }
+    function TagChange5() {
+        if(document.getElementById("selectTagValue5").selectedIndex > 0) {
+            selectTag5();
+            TagFlatIn5();
+        }
+        if(document.getElementById("selectTagValue5").selectedIndex == 0) {
+            selectTag5();
+            TagFlatOut5();
+        }
+    }
+
+
 </script>
 <%- include footer %>

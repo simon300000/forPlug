@@ -1,20 +1,76 @@
-<br />
-<% post.comments.forEach(function (comment, index) { %>
-<p><a href="<%= comment.website %>"><%= comment.name %></a>
-    <span class="info"> 回复于 <%= comment.time %></span></p>
-<p><%- comment.content %></p>
-<% }) %>
+<hr>
 
-<form method="post" action="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">
+<div class="comment">
+    <div class="comment_text"><%= post.comments.length %>
+        评论
+    </div>
+
+    <hr style="margin: 20px 0 0 0;">
+
     <% if (user) { %>
-    姓名：<input type="text" name="name" value="<%= user.name %>" /><br />
-    邮箱：<input type="text" name="email" value="<%= user.email %>" /><br />
-    网址：<input type="text" name="website" value="/u/<%= user.name %>" /><br />
+    <form method="post" action="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="padding:15px 0 0 20px;">
+        <div class="row" style="margin: 20px 0;">
+            <div class="col-xs-1 col-sm-1" style="margin: 10px 35px 0 0;">
+                <div class="comment_author_logo">
+                    <img src="<%= user.logoPath%>" alt="<%= user.name %>" class="img-circle" height="48px" width="48px">
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-10" style="padding: 0 40px 20px 0;">
+                <div style="text-align: right;">
+                    <textarea class="form-control" rows="3" name="content" style="resize: none;"></textarea>
+                    <button type="submit" class="btn btn-info" value="留言" style="margin: 10px 0 0 0;">发表</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr>
     <% } else { %>
-    姓名：<input type="text" name="name" /><br />
-    邮箱：<input type="text" name="email" /><br />
-    网址：<input type="text" name="website" value="http://" /><br />
     <% } %>
-    <textarea name="content" rows="5" cols="80"></textarea><br />
-    <input type="submit" value="留言" />
-</form>
+
+    <!--留言开始-->
+    <div style="padding: 5px 0 20px 20px;">
+    <% post.comments.forEach(function (comment, index) { %>
+    <div class="row" style="margin: 20px 0;">
+
+        <!--用户头像-->
+        <% users.forEach(function (users, index) { %>
+            <% if(comment.name == users.name) { %>
+            <div class="col-sm-1 col-xs-1" style="margin: 0 20px 0 0;">
+                <div class="comment_author_logo">
+                    <img src="<%= users.logoPath%>" alt="<%= comment.name %>" class="img-circle" height="48px" width="48px">
+                </div>
+            </div>
+            <% } %>
+        <% }) %>
+
+        <!--留言内容-->
+        <div class="col-sm-10 col-xs-10">
+            <div class="comment_author_container">
+                <div class="comment_author_name">
+                    <a href=""><%= comment.name %></a>
+                </div>
+                <div class="comment_author_context">
+                    <p><%= comment.content %></p>
+                </div>
+                <div class="comment_author_pv">
+                    <p><%= comment.time %></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <% }) %>
+    <!--留言结束-->
+    </div>
+</div>
+
+
+<script>
+    CKEDITOR.replace( 'editor3', {
+        customConfig: './ckeditor_config.js'
+    });
+    CKEDITOR.editorConfig = function( config )
+    {
+        config.uiColor = '#FAFAFA';
+    };
+</script>
